@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -23,7 +22,8 @@ export const useAuth = () => {
           // contextにログインユーザーの情報を保存
           // サンプル的にidが10のユーザーを管理者としてみる
           const isAdmin = res.data.id === 10 ? true : false;
-          setLoginUser({ ...res.data, isAdmin });
+          // setLoginUserの初期値として null を許容したため判定を追加
+          setLoginUser && setLoginUser({ ...res.data, isAdmin });
           showMessage({ title: "ログインしました", status: "success" });
           history.push("/home");
         } else {

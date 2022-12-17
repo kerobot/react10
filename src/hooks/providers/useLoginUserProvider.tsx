@@ -13,11 +13,14 @@ type LoginUser = User & { isAdmin: boolean };
 
 type LoginUserContextType = {
   loginUser: LoginUser | null;
-  setLoginUser: Dispatch<SetStateAction<LoginUser | null>>;
+  // 初期値を指定可能とするために null を許容
+  setLoginUser: Dispatch<SetStateAction<LoginUser | null>> | null;
 };
 
 const LoginUserContext = createContext<LoginUserContextType>(
-  {} as LoginUserContextType
+  // as（型アサーション）がパーサーエラーとなるため初期値を指定
+  {loginUser: null, setLoginUser: null}
+  // {} as LoginUserContextType
 );
 
 // ログインユーザー情報を保持するcontext
